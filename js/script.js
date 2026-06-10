@@ -1,0 +1,128 @@
+// --- Cuenta atrás ---
+const weddingDate = new Date("Nov 7, 2026 16:00:00").getTime();
+
+setInterval(function(){
+  let now = new Date().getTime();
+  let distance = weddingDate - now;
+  let days    = Math.floor(distance / (1000 * 60 * 60 * 24));
+  let hours   = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  document.getElementById("days").innerHTML    = days;
+  document.getElementById("hours").innerHTML   = hours;
+  document.getElementById("minutes").innerHTML = minutes;
+}, 1000);
+
+// --- Intro con vídeo ---
+const intro = document.getElementById("intro");
+const video = document.getElementById("introVideo");
+const bgMusic = document.getElementById("bgMusic");
+const musicBtn = document.getElementById("musicBtn");
+
+intro.addEventListener("click", function(){
+  video.play();
+  video.onended = function(){
+    document.getElementById("intro").style.opacity = "0";
+    setTimeout(function(){
+      document.getElementById("intro").style.display = "none";
+      document.getElementById("website").style.display = "block";
+      // Arrancar música
+      bgMusic.volume = 0.4;
+      bgMusic.play().catch(() => {});
+      musicBtn.classList.add("active");
+      // Lanzar observers
+      initTimelineObserver();
+    }, 1200);
+  };
+});
+
+// --- Botón mute/unmute ---
+musicBtn.addEventListener("click", function(){
+  if(bgMusic.muted){
+    bgMusic.muted = false;
+    musicBtn.classList.remove("muted");
+    musicBtn.innerHTML = '<i class="fa-solid fa-music"></i>';
+  } else {
+    bgMusic.muted = true;
+    musicBtn.classList.add("muted");
+    musicBtn.innerHTML = '<i class="fa-solid fa-volume-xmark"></i>';
+  }
+});
+
+// --- Cambio de idioma ---
+const buttons = document.querySelectorAll(".lang-btn");
+
+function setLanguage(lang){
+  buttons.forEach(btn => {
+    btn.classList.remove("active");
+    if(btn.dataset.lang === lang) btn.classList.add("active");
+  });
+  document.querySelectorAll("[data-lang-text]").forEach(el => {
+    el.style.display = el.dataset.langText === lang ? "" : "none";
+  });
+}
+
+buttons.forEach(button => {
+  button.addEventListener("click", () => setLanguage(button.dataset.lang));
+});
+
+setLanguage("es");
+
+// --- Scroll al countdown ---
+const scrollButton = document.getElementById("scrollDown");
+scrollButton.addEventListener("click", function(){
+  document.getElementById("countdown").scrollIntoView({ behavior:"smooth" });
+});
+
+// FIX 5: Animación del timeline activada al hacer scroll (IntersectionObserver)
+function initTimelineObserver(){
+  const items = document.querySelectorAll(".timeline-item");
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  items.forEach(item => observer.observe(item));
+}
+
+// --- Botón volver arriba ---
+const backToTop = document.getElementById("backToTop");
+
+window.addEventListener("scroll", function(){
+  if(window.scrollY > 400){
+    backToTop.classList.add("visible");
+  } else {
+    backToTop.classList.remove("visible");
+  }
+});
+
+backToTop.addEventListener("click", function(){
+  window.scrollTo({ top:0, behavior:"smooth" });
+});
+
+// --- Animación de entrada en secciones ---
+function initSectionObserver(){
+  const sections = document.querySelectorAll(".section-animate");
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  sections.forEach(section => observer.observe(section));
+}
+
+// Llamar al observer cuando el website es visible (tras el vídeo)
+// Sobreescribimos la función anterior para incluir ambos observers
+const _origInit = initTimelineObserver;
+initTimelineObserver = function(){
+  _origInit();
+  initSectionObserver();
+};
