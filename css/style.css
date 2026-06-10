@@ -816,3 +816,55 @@ text-decoration:none;
 .footer-contacto a:hover{
 text-decoration:underline;
 }
+/* ===================== REGALO ===================== */
+.regalo{
+padding:80px 20px;
+text-align:center;
+background: var(--color-bg-warm);
+}
+
+.regalo-title{
+font-family: var(--font-title);
+font-size:42px;
+color: var(--color-brown);
+text-transform:none;
+margin-bottom:20px;
+}
+
+.regalo-text{
+max-width:520px;
+margin:0 auto 40px;
+font-size:13px;
+line-height:2.2;
+color: var(--color-brown);
+letter-spacing:1px;
+}
+
+.regalo-card{
+display:inline-block;
+border:1px solid var(--color-brown-light);
+border-radius:20px;
+padding:30px 50px;
+}
+
+.regalo-label{
+font-size:10px;
+letter-spacing:3px;
+color: var(--color-brown-light);
+margin:0 0 12px 0;
+}
+
+.regalo-iban{
+font-family: var(--font-title);
+font-size:28px;
+color: var(--color-brown);
+text-transform:none;
+margin:0 0 8px 0;
+}
+
+.regalo-nombre{
+font-size:11px;
+letter-spacing:3px;
+color: var(--color-brown-light);
+margin:0;
+}
