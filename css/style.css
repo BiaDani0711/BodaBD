@@ -856,10 +856,10 @@ margin:0 0 12px 0;
 
 .regalo-iban{
 font-family: var(--font-title);
-font-size:28px;
+font-size:20px;
 color: var(--color-brown);
 text-transform:none;
-margin:0 0 8px 0;
+margin:0;
 }
 
 .regalo-nombre{
