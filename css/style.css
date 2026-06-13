@@ -855,10 +855,11 @@ margin:0 0 12px 0;
 }
 
 .regalo-iban{
-font-family: var(--font-title);
-font-size:20px;
+font-family: var(--font-body);
+font-size:18px;
+font-weight:600;
+letter-spacing:3px;
 color: var(--color-brown);
-text-transform:none;
 margin:0;
 }
 
