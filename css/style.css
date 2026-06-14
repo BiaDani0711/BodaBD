@@ -848,19 +848,19 @@ padding:30px 50px;
 }
 
 .regalo-label{
-font-size:13px;
+font-size:10px;
 letter-spacing:3px;
 color: var(--color-brown-light);
 margin:0 0 12px 0;
 }
 
 .regalo-iban{
-font-family: 'Courier New', monospace;
-font-size:15px;
-letter-spacing:2px;
+font-family: var(--font-body);
+font-size:18px;
+font-weight:600;
+letter-spacing:3px;
 color: var(--color-brown);
 margin:0;
-white-space:nowrap;
 }
 
 .regalo-nombre{
